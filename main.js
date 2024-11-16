@@ -5,23 +5,21 @@ const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 5000;  // กำหนดพอร์ตให้ชัดเจน
+const port = process.env.PORT || 3000; // ใช้พอร์ตจาก environment หรือ 3000
 
 // ตั้งค่า CORS
 const corsOptions = {
   origin: '*',  // ยอมให้ทุก domain เชื่อมต่อ
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
-
 app.use(cors(corsOptions));
 
-// ตั้งค่าการเชื่อมต่อ MySQL
+// เชื่อมต่อกับฐานข้อมูล MySQL
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  connectTimeout: 10000,
+  host: process.env.DB_HOST,   // ใช้ค่า DB_HOST จาก environment variables
+  user: process.env.DB_USER,   // ใช้ค่า DB_USER จาก environment variables
+  password: process.env.DB_PASSWORD,  // ใช้ค่า DB_PASSWORD จาก environment variables
+  database: process.env.DB_NAME,  // ใช้ค่า DB_NAME จาก environment variables
 });
 
 // เชื่อมต่อกับฐานข้อมูล
