@@ -1,14 +1,19 @@
-require('dotenv').config(); 
+require('dotenv').config();
 
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;  // กำหนดพอร์ตให้ชัดเจน
 
 // ตั้งค่า CORS
-app.use(cors());
+const corsOptions = {
+  origin: '*',  // ยอมให้ทุก domain เชื่อมต่อ
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+};
+
+app.use(cors(corsOptions));
 
 // ตั้งค่าการเชื่อมต่อ MySQL
 const db = mysql.createConnection({
@@ -52,5 +57,5 @@ app.get('/api/snakes/:id', (req, res) => {
 
 // เริ่ม server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
