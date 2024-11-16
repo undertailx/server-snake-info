@@ -1,25 +1,21 @@
 require('dotenv').config();
-
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3000; // ใช้พอร์ตจาก environment หรือ 3000
+const port = process.env.PORT || 5000;
 
 // ตั้งค่า CORS
-const corsOptions = {
-  origin: '*',  // ยอมให้ทุก domain เชื่อมต่อ
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
-// เชื่อมต่อกับฐานข้อมูล MySQL
+// ตั้งค่าการเชื่อมต่อ MySQL
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,   // ใช้ค่า DB_HOST จาก environment variables
-  user: process.env.DB_USER,   // ใช้ค่า DB_USER จาก environment variables
-  password: process.env.DB_PASSWORD,  // ใช้ค่า DB_PASSWORD จาก environment variables
-  database: process.env.DB_NAME,  // ใช้ค่า DB_NAME จาก environment variables
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,  // เพิ่มพอร์ต
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 // เชื่อมต่อกับฐานข้อมูล
@@ -42,19 +38,7 @@ app.get('/api/snakes', (req, res) => {
   });
 });
 
-// API สำหรับดึงข้อมูลงูตาม id
-app.get('/api/snakes/:id', (req, res) => {
-  const { id } = req.params;
-  db.query('SELECT * FROM snakes WHERE id = ?', [id], (err, results) => {
-    if (err) {
-      res.status(500).send({ error: 'Database query failed' });
-    } else {
-      res.json(results[0]);
-    }
-  });
-});
-
 // เริ่ม server
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 });
