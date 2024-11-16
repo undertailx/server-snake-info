@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT;
 
 // ตั้งค่า CORS
 app.use(cors());
