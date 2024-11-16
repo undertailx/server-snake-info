@@ -1,0 +1,19 @@
+# Node modules folder
+node_modules/
+
+# Environment variables file
+.env
+
+# Logs
+logs/
+*.log
+
+# npm package lock file (ถ้าคุณไม่ต้องการให้ Git track)
+package-lock.json
+
+# ไฟล์การตั้งค่า editor เช่น VS Code
+.vscode/
+
+# OS files (เช่น ไฟล์ที่สร้างโดย macOS หรือ Windows)
+.DS_Store
+Thumbs.db
